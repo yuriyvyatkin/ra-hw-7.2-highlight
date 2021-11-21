@@ -3,8 +3,7 @@ import Popular from '../components/List/items/highlight/Popular';
 import New from '../components/List/items/highlight/New';
 
 export default function withHighlight(WrappedComponent) {
-  return class extends Component {
-
+  class withHighlight extends Component {
     render() {
       if (this.props.views >= 1000) {
         return <Popular><WrappedComponent {...this.props} /></Popular>;
@@ -15,4 +14,11 @@ export default function withHighlight(WrappedComponent) {
       }
     }
   }
+
+  const wrappedComponentName = WrappedComponent.displayName
+    || WrappedComponent.name
+    || 'Component';
+
+  withHighlight.displayName = `withHighlight(${wrappedComponentName})`;
+  return withHighlight;
 }
